@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import {ScrollView, Text, TextInput, View, Picker } from "react-native";
-// import { Picker } from "@react-native-community/picker";
+import React, {useState} from "react";
+import {ScrollView, Text, TextInput, View} from "react-native";
+import {Picker} from "@react-native-community/picker";
 import {BorderlessButton, RectButton} from "react-native-gesture-handler";
-import {Feather} from '@expo/vector-icons';
+
+import {Feather, AntDesign} from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import PageHeader from "../../components/PageHeader";
@@ -18,7 +19,7 @@ function TeacherList() {
     const [isFiltersVisible, setIsFiltersVisible] = useState(false);
 
     const [subject, setSubject] = useState('');
-    const [week_day, setWeekDay] = useState('');
+    const [week_day, setWeekDay] = useState<(string | number)>('');
     const [time, setTime] = useState('');
 
     function loadFavorites() {
@@ -80,26 +81,23 @@ function TeacherList() {
                         <View style={styles.inputGroup}>
                             <View style={styles.inputBlock}>
                                 <Text style={styles.label}>Dia da semana</Text>
-                                <Picker
-                                    selectedValue={week_day}
-                                    style={styles.input}
-                                    onValueChange={(itemValue, itemIndex) => setWeekDay(itemValue)}
-                                >
-                                    <Picker.Item label="Domingo" value={0} />
-                                    <Picker.Item label="Segunda-feira" value={1} />
-                                    <Picker.Item label="Terça-feira" value={2} />
-                                    <Picker.Item label="Quarta-feira" value={3} />
-                                    <Picker.Item label="Quinta-feira" value={4} />
-                                    <Picker.Item label="Sexta-feira" value={5} />
-                                    <Picker.Item label="Sábado" value={6} />
-                                </Picker>
-                                {/*<TextInput*/}
-                                {/*    style={styles.input}*/}
-                                {/*    value={week_day}*/}
-                                {/*    onChangeText={text => setWeekDay(text)}*/}
-                                {/*    placeholder="Qual o dia?"*/}
-                                {/*    placeholderTextColor="#c1bccc"*/}
-                                {/*/>*/}
+                                <View style={styles.input}>
+                                    <AntDesign name="down" size={20} style={styles.pickerIcon}/>
+                                    <Picker
+                                        mode="dropdown"
+                                        style={styles.pickerContent}
+                                        selectedValue={week_day}
+                                        onValueChange={text => setWeekDay(text)}
+                                    >
+                                        <Picker.Item label="Domingo" value={0}/>
+                                        <Picker.Item label="Segunda-feira" value={1}/>
+                                        <Picker.Item label="Terça-feira" value={2}/>
+                                        <Picker.Item label="Quarta-feira" value={3}/>
+                                        <Picker.Item label="Quinta-feira" value={4}/>
+                                        <Picker.Item label="Sexta-feira" value={5}/>
+                                        <Picker.Item label="Sábado" value={6}/>
+                                    </Picker>
+                                </View>
                             </View>
 
                             <View style={styles.inputBlock}>
@@ -135,13 +133,13 @@ function TeacherList() {
                 }}
             >
                 {teachers.map((teacher: Teacher) => {
-                    return (
-                        <TeacherItem
-                            key={teacher.id}
-                            teacher={teacher}
-                            favorited={favorites.includes(teacher.id)}
-                        />)
-                }
+                        return (
+                            <TeacherItem
+                                key={teacher.id}
+                                teacher={teacher}
+                                favorited={favorites.includes(teacher.id)}
+                            />)
+                    }
                 )}
             </ScrollView>
         </View>

@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from "react-native";
 
 const styles = StyleSheet.create({
     container: {
@@ -36,6 +36,17 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         marginTop: 4,
         marginBottom: 16,
+    },
+
+    pickerIcon: {
+        position: "absolute",
+        bottom: 15,
+        right: 10,
+        fontSize: 20
+    },
+
+    pickerContent: {
+        backgroundColor: "transparent",
     },
 
     submitButton: {
