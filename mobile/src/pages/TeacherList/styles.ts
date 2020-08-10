@@ -45,6 +45,24 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
 
+
+
+    pickerTimeIcon: {
+        position: "absolute",
+        bottom: 6,
+        right: 5,
+        fontSize: 18
+    },
+
+    hourDisplay: {
+        fontFamily: "Poppins_400Regular",
+        fontSize: 16,
+        justifyContent: "center",
+        paddingHorizontal: 16,
+        marginTop: 4,
+    },
+
+
     pickerContent: {
         backgroundColor: "transparent",
     },

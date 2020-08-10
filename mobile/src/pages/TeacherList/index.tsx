@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {ScrollView, Text, TextInput, View} from "react-native";
+import {ScrollView, Text, TextInput, TouchableHighlight, View} from "react-native";
 import {Picker} from "@react-native-community/picker";
 import {BorderlessButton, RectButton} from "react-native-gesture-handler";
 
@@ -11,6 +11,13 @@ import TeacherItem, {Teacher} from "../../components/TeacherItem";
 import api from "../../services/api";
 
 import styles from "./styles";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+
+
+interface TimeStateProps {
+    DateDisplay?: string;
+    visibility?: boolean;
+}
 
 function TeacherList() {
 
@@ -55,6 +62,30 @@ function TeacherList() {
 
         setIsFiltersVisible(false);
         setTeachers(response.data);
+    }
+
+
+    const [state, setState] = useState<TimeStateProps>();
+
+    function addZero(i: string | number) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+
+    function handleConfirm(date: Date) {
+        const timeValue = `${addZero(date.getHours())}:${addZero(date.getMinutes())}`
+        setState({DateDisplay: timeValue });
+        setTime(timeValue);
+    }
+
+    function onPressCancel() {
+        setState({visibility: false})
+    }
+
+    function onPressButton() {
+        setState({visibility: true})
     }
 
     return (
@@ -102,14 +133,30 @@ function TeacherList() {
 
                             <View style={styles.inputBlock}>
                                 <Text style={styles.label}>Horário</Text>
-                                <TextInput
-                                    style={styles.input}
-                                    value={time}
-                                    onChangeText={text => setTime(text)}
-                                    placeholder="Qual o horário?"
-                                    placeholderTextColor="#c1bccc"
-                                />
+                                <View style={styles.input}>
+                                    <TouchableHighlight onPress={onPressButton}>
+                                        <View>
+                                            <AntDesign
+                                                name="clockcircleo"
+                                                size={20}
+                                                color="black"
+                                                style={styles.pickerTimeIcon}
+                                            />
+                                            <Text
+                                                style={styles.hourDisplay}>
+                                                {state?.DateDisplay ? state?.DateDisplay : '00:00'}
+                                            </Text>
+                                            <DateTimePickerModal
+                                                onConfirm={handleConfirm}
+                                                isVisible={state?.visibility}
+                                                onCancel={onPressCancel}
+                                                mode="time"
+                                            />
+                                        </View>
+                                    </TouchableHighlight>
+                                </View>
                             </View>
+
                         </View>
 
                         <RectButton

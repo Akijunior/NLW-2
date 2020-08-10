@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 19709,
+  "packagerPort": 19003,
+  "packagerPid": 15662,
   "expoServerNgrokUrl": "https://aj-ec8.akijunior.mobile.exp.direct",
   "packagerNgrokUrl": "https://packager.aj-ec8.akijunior.mobile.exp.direct",
-  "ngrokPid": 19737
+  "ngrokPid": 15762
 }
